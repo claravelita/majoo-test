@@ -1,9 +1,12 @@
 package api
 
 import (
+	"github.com/claravelita/majoo-test/api/controller"
 	"github.com/claravelita/majoo-test/api/handler"
 	customMiddleware "github.com/claravelita/majoo-test/api/middleware"
 	"github.com/claravelita/majoo-test/infrastructure/external"
+	"github.com/claravelita/majoo-test/repository/postgres"
+	"github.com/claravelita/majoo-test/usecase/user"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"os"
@@ -27,8 +30,14 @@ func (server *Server) InitializeServer() {
 	customMiddleware.UseCustomLogger(server.Route)
 	handler.UseCustomValidatorHandler(server.Route)
 
-	external.NewGormDB()
-	//apiGroup := server.Route.Group("/api")
+	newDB := external.NewGormDB()
+	apiGroup := server.Route.Group("/api")
+
+	UserRepo := postgres.NewUserRepository(newDB)
+
+	UserUsecase := user.NewUserImplementation(UserRepo)
+	UserController := controller.NewUserController(UserUsecase)
+	UserController.Route(apiGroup)
 
 	serverConfiguration := &http.Server{
 		Addr:         ":" + os.Getenv("SERVER_PORT"),
