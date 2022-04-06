@@ -31,12 +31,12 @@ func NewGormDB() *gorm.DB {
 			fmt.Println(err)
 
 			if err == nil {
-				fmt.Println("Migrasi berhasil!")
+				fmt.Println("Migrate Suceed!")
 			}
 		}
 
 		dbInstance = DBInstance
-
+		SeedData(dbInstance)
 		return dbInstance
 	} else {
 		return dbInstance
