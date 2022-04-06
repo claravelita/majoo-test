@@ -16,8 +16,6 @@ func NewUserController(usecase usecase.UserUsecase) *userController {
 }
 
 func (c *userController) Route(group *echo.Group) {
-	// public
-	//group.POST("/customer/sign-in", c.Signin)
 	group.POST("/register", c.Register)
 	group.POST("/log-in", c.Login)
 }

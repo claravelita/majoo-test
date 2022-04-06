@@ -3,7 +3,6 @@ package user
 import (
 	"github.com/claravelita/majoo-test/common/command"
 	"github.com/claravelita/majoo-test/common/dto"
-	"github.com/claravelita/majoo-test/common/helper"
 	"github.com/claravelita/majoo-test/common/models"
 	"strconv"
 )
@@ -17,9 +16,9 @@ func (u userImplementation) LoginUserCommand(request dto.UserLoginRequest) (mode
 		return command.InternalServerResponses("Internal Server Error"), err
 	}
 
-	checkPassword := helper.CheckPasswordHash(request.Password, findUser.Password)
+	checkPassword := u.auth.CheckPasswordHash(request.Password, findUser.Password)
 	if checkPassword == true {
-		token, tokenErr := helper.CreateJWTTokenLogin(strconv.FormatInt(findUser.ID, 10), findUser.Name, findUser.UserName)
+		token, tokenErr := u.auth.CreateJWTTokenLogin(strconv.FormatInt(findUser.ID, 10), findUser.Name, findUser.UserName)
 		if tokenErr != nil {
 			return command.InternalServerResponses("Internal Server Error"), err
 		}

@@ -3,13 +3,12 @@ package user
 import (
 	"github.com/claravelita/majoo-test/common/command"
 	"github.com/claravelita/majoo-test/common/dto"
-	"github.com/claravelita/majoo-test/common/helper"
 	"github.com/claravelita/majoo-test/common/models"
 	"github.com/claravelita/majoo-test/domain"
 )
 
 func (u userImplementation) CreateUserCommand(request dto.UserRequest) (models.JSONResponses, error) {
-	password, err := helper.HashPassword(request.Password)
+	password, err := u.auth.HashPassword(request.Password)
 	if err != nil {
 		return command.InternalServerResponses("Internal Server Error"), err
 	}
@@ -35,7 +34,7 @@ func (u userImplementation) CreateUserCommand(request dto.UserRequest) (models.J
 		return command.InternalServerResponses("Internal Server Error"), err
 	}
 
-	token, tokenErr := helper.CreateJWTTokenLogin(string(newUser.ID), newUser.Name, newUser.UserName)
+	token, tokenErr := u.auth.CreateJWTTokenLogin(string(newUser.ID), newUser.Name, newUser.UserName)
 	if tokenErr != nil {
 		return command.InternalServerResponses("Internal Server Error"), err
 	}

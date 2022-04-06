@@ -34,3 +34,11 @@ func ForbiddenException() models.JSONResponses {
 		Status: "Access Forbidden",
 	}
 }
+
+func ForbiddenExceptionPagination() models.JSONResponsesPagination {
+	return models.JSONResponsesPagination{
+		Code:   common.ForbiddenCode,
+		Status: "Access Forbidden",
+		Meta:   nil,
+	}
+}

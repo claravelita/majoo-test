@@ -14,4 +14,6 @@ const (
 	MinCost     int = 4
 	MaxCost     int = 31
 	DefaultCost int = 10
+
+	DateFormat = "2006-01-02"
 )
