@@ -5,13 +5,13 @@ Hi! This is my Majoo test case assignment. Please kindly check
 for another answer or explanation about point 1-4.
 
 <h3>Tech Stack</h3>
-* Go
-* PostgreSQL
+1. Go <br>
+2. PostgreSQL
 
 <h3>Initialize</h3>
-1. After clone this code, run to directory and `go mod tidy`
-2. Change port or database credential on local.env
-3. run `main.go`
+1. After clone this code, run to directory and `go mod tidy`<br>
+2. Change port or database credential on local.env<br>
+3. run `main.go`<br>
 
 <h3>API</h3>
 For API, you can test on this postman [collection](https://www.getpostman.com/collections/799eb8570701672d098e)
